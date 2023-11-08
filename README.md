@@ -13,6 +13,6 @@ Código del funcionamiento del módulo de humedad del suelo a través del monito
 ```mermaid
 graph LR
 A[Suelo 100% seco] -- El monitor serial mostrará--> B((1023))
-C[Suelo 100% hÚmedo] -- El monitor serial mostrará --> D((0))
+C[Suelo 100% húmedo] -- El monitor serial mostrará --> D((0))
 ```
 #
