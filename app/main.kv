@@ -1,0 +1,210 @@
+#:kivy 2.2.1
+
+ScreenManager:
+    MainMenu:
+    Login:
+    Funcs:
+
+<MainMenu>:            
+    name: 'main_menu'
+
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.57, 0.57, 0.57, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+        Label:
+            text: "[b]Sistema de Riego"
+            valign: "middle"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(35)
+            markup: True
+            padding: [0, dp(100), 0, 0]
+            color: 0,0,0,1
+        Label:
+            text: "5to Año B\nInformatica 2023"
+            valign: "middle"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(20)
+            markup: True
+            color: 0,0,0,1
+                
+        AnchorLayout:
+        
+            anchor_x: 'center'
+            anchor_y: 'center'
+            
+            GridLayout:
+                cols: 1  
+                size_hint: 0.8, 0.4
+                pos_hint: {'center_x': 0.5}
+                spacing: dp(15)
+
+                Button:
+                    text: "Ingresar"
+                    background_normal: ''
+                    background_color: 0.86, 0.86, 0.86, 1
+                    color: 0,0,0,1
+                    on_release: app.root.current = 'login'
+                Button:
+                    text: "Salir"
+                    background_normal: ''
+                    background_color: 0.86, 0.86, 0.86, 1
+                    color: 0,0,0,1
+                    on_release: app.stop()
+
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(50)
+            size: dp(50), dp(50)
+            background_normal: ''
+            background_color: 0.86, 0.86, 0.86, 1
+            color: 0,0,0,1
+
+<Login>:
+    name: "login"
+
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.57, 0.57, 0.57, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+        Label:
+            text: "[b]Sistema de Riego\nIngresar"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(35)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0,0,0,1
+        AnchorLayout:
+        
+            anchor_x: 'center'
+            anchor_y: 'center'
+            
+            GridLayout:
+                size_hint: 0.8, 0.8
+                pos_hint: {'center_x': 1}
+                spacing: dp(15)
+                cols: 1
+
+                Label:
+                    text: "Usuario"
+                    font_size: dp(25)
+                    color: 0,0,0,1
+                TextInput:
+                    id: user
+                    hint_text:'Ingrese su usuario'
+                    font_size: dp(22)
+                    multiline: False
+                    cursor_color: 0,0,0,1
+                Label:
+                    text: "Contraseña"
+                    font_size: dp(25)
+                    color: 0,0,0,1
+                TextInput:
+                    id: pwd
+                    hint_text:'Ingrese su contraseña'
+                    font_size: dp(22)
+                    multiline: False
+                    cursor_color: 0,0,0,1
+                
+                Button:
+                    text: "Ingresar"
+                    on_release: root.check()
+                Button:
+                    text: "Volver al Menu"
+                    on_release: app.root.current = 'main_menu'
+
+                Label:
+                    id:warning
+                    font_size: dp(15)
+                    halign: "center"
+                    valign: "middle"
+                    color: 0,0,0,1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(50)
+            size: dp(50), dp(50)
+            background_normal: ''
+            background_color: 0.86, 0.86, 0.86, 1
+            color: 0,0,0,1
+
+<Funcs>:
+    name: "funcs"
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.57, 0.57, 0.57, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+        Label:
+            text: "[b]Sistema de Riego\nFunciones"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(35)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0,0,0,1
+        
+        AnchorLayout:
+        
+            anchor_x: 'center'
+            anchor_y: 'center'
+            
+            GridLayout:
+                cols: 1  
+                size_hint: 0.8, 0.1
+                pos_hint: {'center_x': 0.5}
+                spacing: dp(15)
+            
+                Button:
+                    text: "Salir"
+                    background_normal: ''
+                    background_color: 0.86, 0.86, 0.86, 1
+                    color: 0,0,0,1
+                    on_release: app.stop()
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(50)
+            size: dp(50), dp(50)
+            background_normal: ''
+            background_color: 0.86, 0.86, 0.86, 1
+            color: 0,0,0,1
