@@ -1,0 +1,371 @@
+#:kivy 2.2.1
+
+ScreenManager:
+    Historial:
+    Datos:
+
+    Grafico:
+    
+
+<Datos>:            
+    name: 'datos'
+
+    
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.30, 0.30, 0.30, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+        Label:
+            text: "[b]Datos del\nDía"
+            valign: "middle"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, dp(40)]
+            color: 1,1,1,1
+                
+        AnchorLayout:
+        
+            anchor_x: 'center'
+            anchor_y: 'center'
+            
+            GridLayout:
+                cols: 1
+                size_hint: 0.7, 0.8
+                pos_hint: {'center_x': 0.5}
+                spacing: dp(1)
+                
+                Label:
+                    text: "[b]TEMPERATURA"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                            
+
+                Label:
+                    text: "agregar"+" °C"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: False
+                    padding: [0, dp(1), 0, 0]
+                    color: 1,1,1,1
+
+                Label:
+                    text: "[b]HUMEDAD DEL SUELO"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                
+                Label:
+                    text: "agregar"+" %"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: False
+                    padding: [0, dp(1), 0, 0]
+                    color: 1,1,1,1
+
+
+                Label:
+                    text: "[b]ÚLTIMO RIEGO"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                
+                Label:
+                    text: "agregar"+" hs"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: False
+                    padding: [0, dp(1), 0, 0]
+                    color: 1,1,1,1
+
+
+                Button:
+                    text: "GRÁFICO DEL DÍA"
+                    background_normal: ''
+                    background_color: 0.2, 0.2, 200.86, 1
+                    color: 0,0,0,1
+                    on_release: app.root.current = 'grafico'
+                Button:
+                    text: "VOLVER AL MENÚ"
+                    background_normal: ''
+                    background_color: 190.86, 0.2, 0.2, 1
+                    color: 0,0,0,1
+                    on_release: 
+                
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(15)
+            padding: [0, 0, 0, dp(60)]
+            color: 1,1,1,1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            markup: True
+            size_hint: None, None
+            padding: [0, dp(70), 0, 0]
+            font_size: dp(15)
+            color: 1,1,1,1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(50)
+            size: dp(50), dp(50)
+            background_normal: ''
+            background_color: 0.30, 0.30, 0.30, 1
+            color: 1,1,1,1
+
+
+########################################################################################################################
+########################################################################################################################
+
+
+<Historial>:            
+    name: 'historial'
+
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.30, 0.30, 0.30, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+
+        Label:
+            text: "[b]Historial de\nRiego"
+            valign: "middle"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, 0]
+            color: 1,1,1,1
+                
+        AnchorLayout:
+        
+            anchor_x: 'center'
+            anchor_y: 'center'
+            
+            GridLayout:
+                cols: 4  
+                size_hint: 1, 0.4
+                pos_hint: {'center_x': 0.5}
+                spacing: dp(15)
+
+                Label:
+                    text: "[b]Fecha"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                
+                Label:
+                    text:"[b]Horario"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                
+                
+                Label:
+                    text: "[b]Humedad\nfinal"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                
+                Label:
+                    text: "[b]Litros\nde agua"
+                    valign: "middle"
+                    halign: "center"
+                    size_hint_y: None
+                    font_size: dp(15)
+                    size: dp(50), dp(50)
+                    markup: True
+                    padding: [0, dp(1), 0, 0]
+                    color: 0,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: 140/255.0, 140/255.0, 140/255.0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+        
+        Button:
+            text: "VOLVER AL MENÚ"
+            background_normal: ''
+            background_color: 190.86, 0.2, 0.2, 1
+            color: 0,0,0,1
+            size: dp(50), dp(50)
+            size_hint_y: None
+            on_release:
+        
+        Label:
+            text: "[b]"
+            valign: "middle"
+            halign: "center"
+            size_hint_y: None
+            font_size: dp(5)
+            markup: True
+           
+            color: 1,1,1,1
+          
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(50)
+            size: dp(50), dp(50)
+            background_normal: ''
+            background_color: 0.30, 0.30, 0.30, 1
+            color: 1,1,1,1
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(15)
+            padding: [0, 0, 0, dp(60)]
+            color: 1,1,1,1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            markup: True
+            size_hint: None, None
+            padding: [0, dp(70), 0, 0]
+            font_size: dp(15)
+            color: 1,1,1,1
+
+
+###################################################################################################################
+###################################################################################################################
+
+<Grafico>:            
+    name: 'grafico'
+
+    
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.30, 0.30, 0.30, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+
+        
+
+
+       
