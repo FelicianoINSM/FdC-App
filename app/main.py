@@ -1,8 +1,9 @@
 from kivy.app import App
 from kivy.lang.builder import Builder
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
+from kivy.uix.button import Button
 
 TyC = '''
 - Obligación de Cuidado de las Instalaciones:
@@ -39,6 +40,10 @@ class CustomPopup(Popup):
         super().__init__(**kwargs)
         self.ids.tyc_label.text = TyC
 
+class Time(Popup):
+    pass
+
+
 class Login(Screen):
     def on_enter(self):
         Clock.schedule_once(self.pop)
@@ -64,7 +69,6 @@ class Aspersores(Screen):
         self.condition = 0
 
     def on_enter(self):
-        self.condition = 0
         Clock.schedule_once(self.state_check)
 
     def state_check(self, dn):
@@ -88,7 +92,67 @@ class Aspersores(Screen):
         self.state_check('')
 
 class Horarios(Screen):
-    pass     
+    def __init__(self, **kw):
+        super().__init__(**kw)
+
+        self.days = {
+            'Lunes': False,
+            'Martes': False,
+            'Miercoles': False,
+            'Jueves': False,
+            'Viernes': False,
+            'Sabado': False,
+            'Domingo': False,
+        }
+    
+    def on_enter(self):
+        Clock.schedule_once(self.precfg)
+    
+    def precfg(self, x):
+        # config_data = GET CONFIG FROM SOMEWHERE
+        config_data = {'days':['Lunes', 'Miercoles', 'Domingo'], 'start':'20:30', 'end':'20:45'}
+        if 'days' in config_data:
+            for day in config_data['days']:
+                mth = self.get_btn(day)
+                if mth:
+                    mth.background_color = [0.52, 0.95, 0.61, 1]
+                    self.days[day] = True
+
+        if 'start' in config_data:
+            hrs = config_data['start'].split(':')[0]
+            mins = config_data['start'].split(':')[1]
+            self.ids.start_hrs.text = hrs
+            self.ids.start_mins.text = mins
+
+        if 'end' in config_data:
+            hrs = config_data['end'].split(':')[0]
+            mins = config_data['end'].split(':')[1]
+            self.ids.end_hrs.text = hrs
+            self.ids.end_mins.text = mins
+
+    def get_btn(self, day):
+        grid = self.ids.btns
+        for widget in grid.children:
+            if widget.text == day:
+                return widget
+        return False
+
+    def toggle(self, button):
+        dia = button.text
+        if not self.days[dia]:
+            self.days[dia] = True
+            button.background_color = (0.52, 0.95, 0.61, 1)
+        else:
+            self.days[dia] = False
+            button.background_color = (0.85, 0.85, 0.85, 1)  # Cambiar a color original
+
+    def save(self):
+        days = [dia for dia, valor in self.days.items() if valor]
+        start = f'{self.ids.start_hrs.text}:{self.ids.start_mins.text}'
+        end = f'{self.ids.end_hrs.text}:{self.ids.end_mins.text}'
+        data = {'days':days, 'start':start, 'end':end}
+        print(data)
+
 class Datos(Screen):
     pass     
 class Historial(Screen):
