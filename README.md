@@ -6,7 +6,7 @@ Se creo una interfaz simple siguiendo con los lineamientos dados por los diseño
 
 Se añadio un pop-up inicial, obligatorio en su aceptacion, dando a conocer los T&C del uso de la App
 
-Se añadieron las siguientes ventanas a la aplicacion:
+Se añadieron las siguientes ventanas a la aplicación:
 
 - Menú de Inicio de Sesión:
 
