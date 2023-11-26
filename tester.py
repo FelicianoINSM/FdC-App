@@ -1,9 +1,9 @@
 import requests
 
 def send_request():
-    target_ip = "192.168.88.78:8080"
+    target_ip = "192.168.35.123:8080"
     url = f'http://{target_ip}/test'
-    json_data = {'id': 3, 'name': 'Lauti Puto'} 
+    json_data = {'id': 2, 'name': 'Lauti Puto'} 
 
     try:
         # Realiza la solicitud POST a la dirección IP especificada
