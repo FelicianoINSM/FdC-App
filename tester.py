@@ -1,15 +1,29 @@
 import requests
+target_ip = "127.0.0.1:8080"
+route = input('Ingresar ruta (vacio para usar la ruta /): ')
+if route:
+    url = f'http://{target_ip}/{route}'
+else:
+    url = f'http://{target_ip}/'
 
-def send_request():
-    target_ip = "192.168.35.123:8080"
-    url = f'http://{target_ip}/test'
-    json_data = {'id': 2, 'name': 'Lauti Puto'} 
+def post():
+    json_data = {'code': 1234} 
 
     try:
-        # Realiza la solicitud POST a la dirección IP especificada
         response = requests.post(url, json=json_data)
 
-        # Verifica si la solicitud fue exitosa (código de estado 2xx)
+        if response.ok:
+            print(response.text)
+        else:
+            print(f'Error en la solicitud. Código de estado: {response.status_code}')
+
+    except requests.exceptions.RequestException as e:
+        print(f'Error durante la solicitud: {e}')
+
+def get():
+    try:
+        response = requests.get(url)
+
         if response.ok:
             print(response.text)
         else:
@@ -19,4 +33,4 @@ def send_request():
         print(f'Error durante la solicitud: {e}')
 
 if __name__ == '__main__':
-    send_request()
+    post()

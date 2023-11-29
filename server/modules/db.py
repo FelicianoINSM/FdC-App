@@ -1,11 +1,8 @@
 import sqlite3 as sql
 
 class SQLdb:
-    def __init__(self) -> None:
-        pass
-
     def con(self):
-        con = sql.connect('./server/test.db')
+        con = sql.connect('./server/server.db')
         cur = con.cursor()
         return con, cur
 

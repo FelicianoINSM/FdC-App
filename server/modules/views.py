@@ -1,11 +1,13 @@
 from flask.views import MethodView
+from flask import request
 from .scripts import get_config
 
-
-
-class HomeView(MethodView):
+class Home(MethodView):
     def get(self):
-        usr = get_config('user')
-        pwd = get_config('password')
-        text = f'User: {usr} <br/> Password: {pwd}'
-        return text
+        return 'Hola Mundo'
+    
+    def post(self):
+        data = request.get_json()
+        return data
+
+    
