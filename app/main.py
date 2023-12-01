@@ -45,7 +45,7 @@ El titular del Programa se reserva el derecho de suspender o poner fin al acceso
 
 class Server:
     def __init__(self) -> None:
-        self.address = 'http://127.0.0.1:8080'
+        self.address = 'http://192.168.35.116:8080'
 
     def login(self, usr, pwd):
         url = f'{self.address}/login'
@@ -162,6 +162,9 @@ class Login(Screen):
         if Server().login(in_user, in_pwd):
             App.get_running_app().root.current = 'main'
 
+class MainMenu(Screen):
+    pass
+
 class Aspersores(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -263,7 +266,7 @@ class Datos(Screen):
         info = eval(Server().day())
         self.ids.temp.text = f"{info['temp']} °C"
         self.ids.hum.text = f"{info['hum']} %"
-        self.ids.last.text = f"{info['last']} hs"
+        self.ids.last.text = f"{info['last']}"
 
     def pop_pregunta(self):
         popup = PreguntaPopup("Aquí se mostrarán los datos de temperatura, la humedad del suelo y el último riego de nuestro sistema. Esto le permitirá evaluar la información para tomar decisiones sobre el manejo del sistema.") 

@@ -19,7 +19,7 @@ class SQLdb:
         cur.execute('''CREATE TABLE IF NOT EXISTS day_info (
                     temp REAL,
                     hum REAL,
-                    last TEXT    
+                    last DATE  
         )''')
 
         cur.execute('''CREATE TABLE IF NOT EXISTS historial (
@@ -33,7 +33,7 @@ class SQLdb:
     def setup(self, cfg):
         con, cur = self.con()
         cur.execute('INSERT INTO horarios (days, start, end) VALUES (?, ?, ?)', (cfg['days'], cfg['start'], cfg['end'], ))
-        cur.execute('INSERT INTO day_info (temp, hum, last) VALUES (0, 0, "Undefined")')
+        cur.execute('INSERT INTO day_info (temp, hum, last) VALUES (0, 0, "2023-01-01 20:51")')
         fechas = ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05']
         for fecha in fechas:
             hora = f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}"

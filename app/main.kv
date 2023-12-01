@@ -231,14 +231,14 @@ ScreenManager:
                         background_color: 0.85, 0.85, 0.85, 1
                         color: 0, 0, 0, 1
                         font_size: self.height / 2
-                        on_release: app.root.current = 'data'
+                        on_release: app.root.current = 'datos'
                     Button:
                         text: "Historial de Riego"
                         background_normal: ''
                         background_color: 0.85, 0.85, 0.85, 1
                         color: 0, 0, 0, 1
                         font_size: self.height / 2
-                        on_release: app.root.current = 'hist'
+                        on_release: app.root.current = 'historial'
         GridLayout:
             cols: 1
             size_hint: 1, 0.25
@@ -706,19 +706,12 @@ ScreenManager:
                     padding: [0, dp(1), 0, 0]
                     color: 1,1,1,1
 
-
-                Button:
-                    text: "GRÁFICO DEL DÍA"
-                    background_normal: ''
-                    background_color: 0.2, 0.2, 200.86, 1
-                    color: 0,0,0,1
-                    on_release: app.root.current = 'grafico'
                 Button:
                     text: "VOLVER AL MENÚ"
                     background_normal: ''
                     background_color: 190.86, 0.2, 0.2, 1
                     color: 0,0,0,1
-                    on_release: 
+                    on_release: app.root.current = 'main'
                 
 
     AnchorLayout:
@@ -803,7 +796,7 @@ ScreenManager:
             color: 0,0,0,1
             size: dp(50), dp(50)
             size_hint_y: None
-            on_release:
+            on_release: app.root.current = 'main'
         
         Label:
             text: "[b]"
