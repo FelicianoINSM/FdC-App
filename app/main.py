@@ -4,6 +4,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.uix.button import Button
+import requests
+
 
 TyC = '''
 - Obligación de Cuidado de las Instalaciones:
@@ -32,41 +34,87 @@ El titular del Programa conserva el derecho de modificar estos términos y condi
 
 El titular del Programa se reserva el derecho de suspender o poner fin al acceso del usuario al Programa en caso de incumplimiento de estos términos y condiciones o mal uso del mismo.
 '''
-USER = ''
-PWD = ''
 
+class Server:
+    def __init__(self) -> None:
+        self.address = 'http://127.0.0.1:8080'
+
+    def login(self, usr, pwd):
+        url = f'{self.address}/login'
+        data = {'usr':usr, 'pwd':pwd}
+        response = requests.post(url, json=data)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    
+    def asp_state(self):
+        url = f'{self.address}/asp'
+        response = requests.get(url).json()
+        if response['state'] == 'on':
+            return 1
+        elif response['state'] == 'off':
+            return 0
+        else: 
+            return 2
+    
+    def change_asp_state(self, new_state):
+        url = f'{self.address}/asp'
+        data = {'state':new_state}
+        response = requests.post(url, json=data)
+        return response.status_code
+    
+    def accept_tyc(self):
+        url = f'{self.address}/tyc'
+        data = {'tyc':'off'}
+        response = requests.post(url, json=data)
+        return response.status_code
+
+    def get_tyc_state(self):
+        url = f'{self.address}/tyc'
+        response = requests.get(url)
+        return eval(response.text)
+    
+    def get_horarios(self):
+        url = f'{self.address}/horarios'
+        response = requests.get(url)
+        return eval(response.text)
+    
+    def edit_horarios(self, cfg):
+        url = f'{self.address}/horarios'
+        response = requests.post(url, json=cfg)
+        return response.status_code
+    
 class CustomPopup(Popup):
-    def __init__(self, **kwargs):
+    def __init__(self, text, **kwargs):
         super().__init__(**kwargs)
-        self.ids.tyc_label.text = TyC
-
-class Time(Popup):
-    pass
-
+        self.ids.tyc_label.text = text
+    def accept(self):
+        Server().accept_tyc()
+        self.dismiss()
 
 class Login(Screen):
     def on_enter(self):
         Clock.schedule_once(self.pop)
 
     def pop(self, dt):
-        popup = CustomPopup()
-        popup.open()
+        if Server().get_tyc_state()['tyc'] == 'on':
+            self.popup = CustomPopup(TyC)
+            self.popup.open()
 
     def check(self):
         in_user = self.ids.user.text
         in_pwd = self.ids.pwd.text
-        if in_user == USER and in_pwd == PWD:
-            App.get_running_app().root.current = "main"
-        else:
-            self.ids.warning.text = "Usuario o Contraseña INCORRECTOS!\nIntente ingresando los datos nuevamente."
-
+        if Server().login(in_user, in_pwd):
+            App.get_running_app().root.current = 'main'
+       
 class MainMenu(Screen):
     pass     
 
 class Aspersores(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
-        self.condition = 0
+        self.condition = Server().asp_state()
 
     def on_enter(self):
         Clock.schedule_once(self.state_check)
@@ -74,11 +122,11 @@ class Aspersores(Screen):
     def state_check(self, dn):
         match self.condition:
             case 0: 
-                self.ids.state_lbl.text = 'Estado: [color=84F19C]APAGADO[/color]'
+                self.ids.state_lbl.text = 'Estado: [color=FF5555]APAGADO[/color]'
                 self.ids.state_btn.text = 'Encender'
                 self.ids.state_btn.disabled = False
             case 1: 
-                self.ids.state_lbl.text = 'Estado: [color=FF5555]ENCENDIDO[/color]'
+                self.ids.state_lbl.text = 'Estado: [color=84F19C]ENCENDIDO[/color]'
                 self.ids.state_btn.text = 'Apagar'
                 self.ids.state_btn.disabled = False
             case 2: 
@@ -87,9 +135,13 @@ class Aspersores(Screen):
                 self.ids.state_btn.disabled = True
 
     def change_state(self):
-        self.condition += 1
-        if self.condition > 2: self.condition = 0
-        self.state_check('')
+        match self.condition:
+            case 0:
+                Server().change_asp_state('on')
+            case 1:
+                Server().change_asp_state('off')
+        self.condition = Server().asp_state()
+        self.state_check('x')
 
 class Horarios(Screen):
     def __init__(self, **kw):
@@ -109,8 +161,7 @@ class Horarios(Screen):
         Clock.schedule_once(self.precfg)
     
     def precfg(self, x):
-        # config_data = GET CONFIG FROM SOMEWHERE
-        config_data = {'days':['Lunes', 'Miercoles', 'Domingo'], 'start':'20:30', 'end':'20:45'}
+        config_data = Server().get_horarios()
         if 'days' in config_data:
             for day in config_data['days']:
                 mth = self.get_btn(day)
@@ -151,19 +202,17 @@ class Horarios(Screen):
         start = f'{self.ids.start_hrs.text}:{self.ids.start_mins.text}'
         end = f'{self.ids.end_hrs.text}:{self.ids.end_mins.text}'
         data = {'days':days, 'start':start, 'end':end}
-        print(data)
+        Server().edit_horarios(data)
 
 class Datos(Screen):
     pass     
+
 class Historial(Screen):
     pass     
-
-
 
 class FdCyTApp(App):
     def build(self):
         return Builder.load_file("./main.kv")
-
 
 if __name__ == '__main__':
     FdCyTApp().run()
