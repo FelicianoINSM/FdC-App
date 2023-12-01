@@ -3,9 +3,7 @@ from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
-from kivy.uix.button import Button
 import requests
-
 
 TyC = '''
 - Obligación de Cuidado de las Instalaciones:
