@@ -5,7 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 import matplotlib.pyplot as plt
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
-from kivy.garden.matplotlib import FigureCanvasKivyAgg
+# from kivy.garden.matplotlib import FigureCanvasKivyAgg
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -31,15 +31,15 @@ class Server:
         response = requests.get(url)
         return response.text
 
-class CustomPopup(Popup):
+class PreguntaPopup(Popup):
     def __init__(self, text, **kwargs):
-        super(CustomPopup, self).__init__(**kwargs)
+        super(PreguntaPopup, self).__init__(**kwargs)
         self.ids.pop_label.text = text
 
 
 class DropDownItem(GridLayout):
     def __init__(self, obj_info, **kwargs):
-        super(DropDownItem, self).__init__(cols=5, height=40, **kwargs)
+        super(DropDownItem, self).__init__(padding=10, cols=5, height=40, **kwargs)
 
         with self.canvas.before:
             Color(0.2, 0.2, 0.2, 1)
@@ -81,14 +81,14 @@ class Datos(Screen):
         self.ids.last.text = f"{info['last']} hs"
 
     def pop_pregunta(self):
-        popup = CustomPopup("Aquí se mostrarán los datos de temperatura, la humedad del suelo y el último riego de nuestro sistema. Esto le permitirá evaluar la información para tomar decisiones sobre el manejo del sistema.") 
+        popup = PreguntaPopup("Aquí se mostrarán los datos de temperatura, la humedad del suelo y el último riego de nuestro sistema. Esto le permitirá evaluar la información para tomar decisiones sobre el manejo del sistema.") 
         popup.open()
 
 
 class Historial(Screen):
    
     def pop_pregunta(self):
-        popup = CustomPopup("Aquí veremos los riesgos que se han ido haciendo a lo largo del tiempo. Se mostrarán, la fecha, el horario que se estableció esta sesión, la humedad final del momento y cuánta agua se utilizó en esta sesión.") 
+        popup = PreguntaPopup("Aquí veremos los riesgos que se han ido haciendo a lo largo del tiempo. Se mostrarán, la fecha, el horario que se estableció esta sesión, la humedad final del momento y cuánta agua se utilizó en esta sesión.") 
         popup.open()
     pass
 
@@ -129,8 +129,8 @@ class Grafico(Screen):
   
 
         box = BoxLayout( orientation = 'vertical', spacing=1)
-        self.canvas = FigureCanvasKivyAgg(self.fig, size_hint=(1, 10))
-        box.add_widget(self.canvas)
+        # self.canvas = FigureCanvasKivyAgg(self.fig, size_hint=(1, 10))
+        # box.add_widget(self.canvas)
         box.add_widget(layout)
         
         return box
