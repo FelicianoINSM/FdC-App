@@ -1,5 +1,7 @@
 import sqlite3 as sql
 import random
+import json
+
 
 class SQLdb:
     def con(self):
@@ -9,6 +11,11 @@ class SQLdb:
 
     def create_tbls(self):
         con, cur = self.con()
+        cur.execute('''CREATE TABLE IF NOT EXISTS horarios (
+                    days TEXT,
+                    start TIME,
+                    end TIME    
+        )''')
         cur.execute('''CREATE TABLE IF NOT EXISTS day_info (
                     temp REAL,
                     hum REAL,
@@ -23,8 +30,9 @@ class SQLdb:
                     litros INTEGER
         )''')
 
-    def setup(self):
+    def setup(self, cfg):
         con, cur = self.con()
+        cur.execute('INSERT INTO horarios (days, start, end) VALUES (?, ?, ?)', (cfg['days'], cfg['start'], cfg['end'], ))
         cur.execute('INSERT INTO day_info (temp, hum, last) VALUES (0, 0, "Undefined")')
         fechas = ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05']
         for fecha in fechas:
@@ -35,7 +43,6 @@ class SQLdb:
         con.commit()
         cur.close()
 
-    
     def get_day_info(self):
         con, cur = self.con()
         cur.execute('SELECT * FROM day_info')
@@ -55,7 +62,19 @@ class SQLdb:
         con.commit()
         cur.close()
 
+    def get_horarios(self):
+        con, cur = self.con()
+        cur.execute('SELECT * FROM horarios')
+        data = cur.fetchall()
+        return data
+    
+    def edit_horarios(self, cfg):
+        con, cur = self.con()
+        cur.execute('UPDATE horarios SET days = ?, start = ?, end = ?', (json.dumps(cfg['days']), cfg['start'], cfg['end'], ))
+        con.commit()
+        cur.close()
+
 # if __name__ == '__main__':
 #     db = SQLdb()
 #     db.create_tbls()
-#     db.get_history()
+#     db.setup({'days':json.dumps(['Lunes', 'Miercoles', 'Domingo']), 'start':'20:30', 'end':'20:45'})

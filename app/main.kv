@@ -1,10 +1,44 @@
 #:kivy 2.2.1
 
 ScreenManager:
-    
+    Login:
+    MainMenu:
+    Aspersores:
+    Horarios:
     Datos:
     Historial:
     Grafico:
+
+<CustomPopup>:
+    title: 'Terminos y Condiciones'
+    size_hint: 0.7, 0.7
+    auto_dismiss: False 
+
+    ScrollView:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            Label:
+                id: tyc_label
+                text: ''
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+            GridLayout:
+                size_hint_y: None
+                padding: [0, dp(30), 0, 0]
+                cols: 2
+                Button:
+                    text: 'Aceptar'
+                    size_hint_y: None
+                    height: '48dp'
+                    on_release: root.accept()
+                Button:
+                    text: 'Salir'
+                    size_hint_y: None
+                    height: '48dp'
+                    on_release: app.stop()
 
 <PreguntaPopup>:
     title: '?'
@@ -22,7 +56,531 @@ ScreenManager:
                 size_hint_y: None
                 height: self.texture_size[1]
 
+<Login>:
+    name: "login"
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.25, 0.25, 0.25, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
+        cols: 1
+
+        Label:
+            text: "[b]Sistema de Riego"
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0.85, 0.85, 0.85, 1
+        GridLayout:
+            cols: 1
+            AnchorLayout:
+            
+                anchor_x: 'center'
+                anchor_y: 'center'
+                
+                GridLayout:
+                    size_hint: 0.8, 0.8
+                    pos_hint: {'center_x': 1}
+                    spacing: dp(15)
+                    cols: 1
+
+                    Label:
+                        text: "Usuario"
+                        font_size: dp(25)
+                        color: 0.85, 0.85, 0.85, 1
+                    TextInput:
+                        id: user
+                        font_size: dp(22)
+                        multiline: False
+                        cursor_color: 0,0,0,1
+                        color: 0.85, 0.85, 0.85, 1
+                    Label:
+                        text: "Contraseña"
+                        font_size: dp(25)
+                        color: 0.85, 0.85, 0.85, 1
+                    TextInput:
+                        id: pwd
+                        password: True
+                        font_size: dp(22)
+                        multiline: False
+                        cursor_color: 0,0,0,1
+                        color: 0.85, 0.85, 0.85, 1
+        GridLayout:
+            cols: 1
+            spacing: '20dp'
+            size_hint: 1, 0.4
+
+            Button:
+                text: "[b]INGRESAR[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: root.check()
+                background_normal: ''
+                background_color: 0.52, 0.95, 0.61, 1
+                color: 0,0,0,1
+            Button:
+                text: "[b]SALIR[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: root.check()
+                background_normal: ''
+                background_color: 1.0, 0.33, 0.33, 1
+                color: 0,0,0,1
+
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.45
+            Label:
+                id:warning
+                size_hint_y: None
+                font_size: dp(18)
+                halign: "center"
+                valign: "middle"
+                color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(40)
+            size: '40dp', '40dp'
+            background_normal: ''
+            background_color: 0.25, 0.25, 0.25, 1
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            size_hint: None, None
+            size: '60dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            size_hint: None, None
+            size: '100dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+<MainMenu>:
+    name: "main"
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.25, 0.25, 0.25, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+
+        Label:
+            text: "[b]Menú Principal"
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0.85, 0.85, 0.85, 1
+        GridLayout:
+            cols: 1
+            AnchorLayout:
+            
+                anchor_x: 'center'
+                anchor_y: 'center'
+                
+                GridLayout:
+                    size_hint: 0.9, 0.6
+                    spacing: dp(15)
+                    cols: 1
+
+                    Button:
+                        text: "Control de Aspersores"
+                        background_normal: ''
+                        background_color: 0.85, 0.85, 0.85, 1
+                        color: 0, 0, 0, 1
+                        font_size: self.height / 2
+                        on_release: app.root.current = 'asp'
+                    Button:
+                        text: "Horarios de Riego"
+                        background_normal: ''
+                        background_color: 0.85, 0.85, 0.85, 1
+                        color: 0, 0, 0, 1
+                        font_size: self.height / 2
+                        on_release: app.root.current = 'hrs'
+                    Button:
+                        text: "Datos del Día"
+                        background_normal: ''
+                        background_color: 0.85, 0.85, 0.85, 1
+                        color: 0, 0, 0, 1
+                        font_size: self.height / 2
+                        on_release: app.root.current = 'data'
+                    Button:
+                        text: "Historial de Riego"
+                        background_normal: ''
+                        background_color: 0.85, 0.85, 0.85, 1
+                        color: 0, 0, 0, 1
+                        font_size: self.height / 2
+                        on_release: app.root.current = 'hist'
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.25
+            
+            spacing: '15dp'
+            padding: [0, 0, 0, self.height / 2]
+            Button:
+                text: "[b]SALIR[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: app.stop()
+                background_normal: ''
+                background_color: 1.0, 0.33, 0.33, 1
+                color: 0,0,0,1
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(40)
+            size: '40dp', '40dp'
+            background_normal: ''
+            background_color: 0.25, 0.25, 0.25, 1
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            size_hint: None, None
+            size: '60dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            size_hint: None, None
+            size: '100dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+
+<Aspersores>:
+    name: "asp"
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.25, 0.25, 0.25, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+        Label:
+            text: "[b]Control de\nAspersores"
+            valign: 'middle'
+            halign: 'center'
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0.85, 0.85, 0.85, 1
+        GridLayout:
+            cols: 1
+            AnchorLayout:
+            
+                anchor_x: 'center'
+                anchor_y: 'center'
+                
+                GridLayout:
+                    size_hint: 0.9, 0.4
+                    spacing: dp(35)
+                    cols: 1
+
+                    Label:
+                        id:state_lbl
+                        font_size: dp(30)
+                        markup: True
+                        color: 0.85, 0.85, 0.85, 1
+                    
+                    Button:
+                        id: state_btn
+                        text: ''
+                        on_release: root.change_state()
+                        background_normal: ''
+                        background_color: 0.85, 0.85, 0.85, 1
+                        color: 0,0,0,1 
+                        font_size: self.height / 2
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.25
+            
+            spacing: '15dp'
+            padding: [0, 0, 0, self.height / 2]
+            Button:
+                text: "[b]VOLVER AL MENÚ[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: app.root.current = 'main'
+                background_normal: ''
+                background_color: 1.0, 0.33, 0.33, 1
+                color: 0,0,0,1
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(40)
+            size: '40dp', '40dp'
+            background_normal: ''
+            background_color: 0.25, 0.25, 0.25, 1
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            size_hint: None, None
+            size: '60dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            size_hint: None, None
+            size: '100dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+<Horarios>:
+    name: "hrs"
+    GridLayout:
+        canvas.before:
+            Color: 
+                rgba: 0.25, 0.25, 0.25, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        cols: 1
+        Label:
+            text: "[b]Horarios de\nRiego"
+            valign: 'middle'
+            halign: 'center'
+            size_hint_y: None
+            font_size: dp(45)
+            markup: True
+            padding: [0, dp(100), 0, dp(50)]
+            color: 0.85, 0.85, 0.85, 1
+        GridLayout:
+            cols: 1
+            AnchorLayout:
+            
+                anchor_x: 'center'
+                anchor_y: 'center'
+                
+                GridLayout:
+                    size_hint: 0.8, 0.7
+                    pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                    spacing: dp(35)
+                    cols: 1
+
+                    GridLayout:
+                        id: btns
+                        cols: 4
+                        spacing: dp(20)
+
+                        Button:
+                            text: 'Lunes'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Martes'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Miercoles'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Jueves'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Viernes'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Sabado'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+                        Button:
+                            text: 'Domingo'
+                            background_normal: ''
+                            background_color: 0.85, 0.85, 0.85, 1
+                            color: 0,0,0,1
+                            on_release: root.toggle(self)
+
+                    GridLayout:
+                        cols: 2
+                        spacing: self.width / 6
+                        size_hint: 1, 0.3
+
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            Label:
+                                text: 'Inicio: '
+                            Spinner:
+                                id: start_hrs
+                                values: [str(i).zfill(2) for i in range(24)]
+                                background_normal: ''
+                                background_color: 0.85, 0.85, 0.85, 1
+                                color: 0, 0, 0, 1
+                                text: '00'
+
+                            Label:
+                                text: ':'
+
+                            Spinner:
+                                id: start_mins
+                                values: ['00', '15', '30', '45']
+                                background_normal: ''
+                                background_color: 0.85, 0.85, 0.85, 1
+                                color: 0, 0, 0, 1
+                                text: '00'
+
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            Label:
+                                text: 'Final: '
+                            Spinner:
+                                id: end_hrs
+                                values: [str(i).zfill(2) for i in range(24)]
+                                background_normal: ''
+                                background_color: 0.85, 0.85, 0.85, 1
+                                color: 0, 0, 0, 1
+                                text: '00'
+
+
+                            Label:
+                                text: ':'
+
+                            Spinner:
+                                id: end_mins
+                                values: ['00', '15', '30', '45']
+                                background_normal: ''
+                                background_color: 0.85, 0.85, 0.85, 1
+                                color: 0, 0, 0, 1
+                                text: '00'
+                    
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.6
+            
+            spacing: '15dp'
+            padding: [0, 0, 0, self.height / 2]
+            Button:
+                text: "[b]GUARDAR[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: root.save()
+                background_normal: ''
+                background_color: 0.52, 0.95, 0.61, 1
+                color: 0,0,0,1
+            Button:
+                text: "[b]VOLVER AL MENÚ[/b]"
+                font_size: self.height / 2
+                markup: True
+                on_release: app.root.current = 'main'
+                background_normal: ''
+                background_color: 1.0, 0.33, 0.33, 1
+                color: 0,0,0,1
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        
+        Button:
+            text: "[b]?[/b]"
+            markup: True
+            size_hint: None, None
+            font_size: dp(40)
+            size: '40dp', '40dp'
+            background_normal: ''
+            background_color: 0.25, 0.25, 0.25, 1
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        
+        Label:
+            text: "[b]INSM[/b]"
+            size_hint: None, None
+            size: '60dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
+
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'bottom'
+        
+        Label:
+            text: "[b]5° B | 2023[/b]"
+            size_hint: None, None
+            size: '100dp', '30dp'
+            markup: True
+            font_size: dp(18)
+            color: 0.85, 0.85, 0.85, 1
 
 <Datos>:            
     name: 'datos'
@@ -202,11 +760,6 @@ ScreenManager:
             color: 1,1,1,1
             on_release:root.pop_pregunta()
 
-
-########################################################################################################################
-########################################################################################################################
-
-
 <Historial>:            
     name: 'historial'
 
@@ -302,10 +855,6 @@ ScreenManager:
             font_size: dp(15)
             color: 1,1,1,1
 
-
-###################################################################################################################
-###################################################################################################################
-
 <Grafico>:            
     name: 'grafico'
 
@@ -317,68 +866,3 @@ ScreenManager:
             Rectangle:
                 pos: self.pos
                 size: self.size
-        
-########################################################################################################################
-########################################################################################################################
-
-<Pregunta1>:            
-    name: 'pregunta1'
-
-    
-    GridLayout:
-        canvas.before:
-            Color: 
-                rgba: 0.30, 0.30, 0.30, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        cols: 1
-        row_default_height: '250dp'
-
-        Label:
-            text: "[b]Esta contraseña será cedida por uno de nuestros\ndesarrolladores, recuerde no olvidar su contraseña\ny usuario y tampoco mostrársela a personas que no\nestén autorizadas."
-            valign: "middle"
-            halign: "left"
-            size_hint_y: None
-            font_size: dp(15)
-            markup: True
-            padding: [0, dp(100), 0, dp(40)]
-            color: 1,1,1,1
-
-        Button:
-            text: "VOLVER"
-            background_normal: ''
-            background_color: 190.86, 0.2, 0.2, 1
-            color: 0,0,0,1
-            size: dp(50), dp(50)
-            size_hint_y: None
-            on_release:
-
-
-##################################################################################################################
-
-#text: "[b]Menú de funciones del sistema de riego.\nCada botón te llevará a su interfaz asignada\ndonde podrás manipular el programa.\nCon cualquier botón volver podrás retroceder\nnuevamente al menú inicial."
-           
-##################################################################################################################
-
-#text: "[b]Aquí usted podrá programar el funcionamiento del regador:\npodrá configurar las horas de inicio y finalización del servicio\ny los días donde aplicaran.\nAdemás podrá guardar las configuraciones para volver a\nutilizarlas.\nNo se puede hacer en paralelo; los días seleccionados se\nharán en el horario dispuesto."
-           
-
-##################################################################################################################
-
-
-#text: "[b]Desde esta pantalla podemos encender y apagar los aspersores\ny ver en el estado que están.\nTambién en algunas ocasiones si el programa tiene algún error\nlo muestra en pantalla."
-            
-
-
-##################################################################################################################
-
-#text: "[b]Aquí se mostrarán los datos de temperatura, la humedad\ndel suelo y el último riego de nuestro sistema.\nEsto le permitirá evaluar la información para tomar \ndecisiones sobre el manejo del sistema."
-            
-
-      
-##################################################################################################################
-
-#text: "[b]Aquí veremos los riesgos que se han ido haciendo a lo\nlargo del tiempo.\nSe mostrarán, la fecha, el horario que se estableció\nesta sesión, la humedad final del momento y cuánta agua\nse utilizó en esta sesión."
-            
