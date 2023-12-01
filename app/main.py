@@ -20,7 +20,6 @@ import os
 
 dir= os.getcwd()
 
-
 class Server:
     def day(self):
         url = 'http://127.0.0.1:8080/day'
