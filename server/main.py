@@ -1,5 +1,5 @@
 from flask import Flask
-from modules.views import Home, Login, Aspersores, TyC, Horarios
+from modules.views import Home, Login, Aspersores, TyC, Horarios, DayInfo, Historial
 from modules.db import SQLdb
 
 class Listener:
@@ -13,7 +13,8 @@ class Listener:
         self.app.add_url_rule('/asp', view_func=Aspersores.as_view('asp'))
         self.app.add_url_rule('/tyc', view_func=TyC.as_view('tyc'))
         self.app.add_url_rule('/horarios', view_func=Horarios.as_view('horarios'))
-
+        self.app.add_url_rule('/day', view_func=DayInfo.as_view('day'))
+        self.app.add_url_rule('/hist', view_func=Historial.as_view('hist'))
 
     def run(self):
         self.db.create_tbls()

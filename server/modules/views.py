@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask import request, make_response
+from flask import request, make_response, jsonify
 from .scripts import get_config, edit_config
 from .db import SQLdb
 
@@ -10,6 +10,7 @@ class Home(MethodView):
     def post(self):
         data = request.get_json()
         return data
+
     
 class Login(MethodView):
     def post(self):
@@ -57,3 +58,19 @@ class Horarios(MethodView):
             return make_response('', 200)
         except:
             return make_response('', 400)
+
+class DayInfo(MethodView):
+    def get(self):
+        data = SQLdb().get_day_info()
+        temp, hum, last = data
+        return jsonify({'temp':temp, 'hum':hum, 'last':last})
+    
+class Historial(MethodView):
+    def get(self):
+        data = SQLdb().get_history()
+        ret = []
+        for i in data:
+            fecha, inicio, final, humedad, temperatura = i
+            form = {'fecha':fecha, 'inicio':inicio, 'final':final, 'humedad':humedad, 'temperatura':temperatura}
+            ret.append(form)
+        return ret
